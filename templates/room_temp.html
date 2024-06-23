@@ -1,0 +1,67 @@
+{% extends 'base.html' %} {% block content %}
+<div class="message-box">
+    <h2>Chat Room: {{code}}</h2>
+    <div class="messages" id="messages"></div>
+    <div class="inputs">
+        <input type="text" rows="3" placeholder="Message" name="message" id="message" />
+        <button type="button" name="send" id="send-btn" onClick="sendMessage()">
+            Send
+        </button>
+    </div>
+</div>
+<script type="text/javascript">
+    var socketio = io();
+
+
+
+    // var encrypted = 'BIKkBIedbWNp+x3q1ZMGbA=='; //python is base64 ECB
+    var key = 'a%v*n&p#10&&11**'//key used in Python
+    key = CryptoJS.enc.Utf8.parse(key);
+
+
+
+    const messages = document.getElementById("messages");
+
+    const createMessage = (name, msg) => {
+        msg.toString();
+        var decrypted = CryptoJS.AES.decrypt(msg, key, { mode: CryptoJS.mode.ECB });
+        ans = decrypted.toString(CryptoJS.enc.Utf8);
+        // console.log(name);
+        // console.log(ans);
+        // if(ans == 'has entered the room') return;
+        if (ans === '') return;
+        // console.log(ans);
+        const content = `
+    <div class="text">
+        <span>
+            <strong>${name}</strong>: ${ans}
+        </span>
+        <span class="muted">
+            ${new Date().toLocaleString()}
+        </span>
+    </div>
+    `;
+        messages.innerHTML += content;
+    };
+
+    socketio.on("message", (data) => {
+        if (data.message === 'itCH9LQxCRTjofVvRGxcRg==' || data.message === '/NcPiDriiWAJswTdxrRIS0bbsTH6CASsEEkv1Ks7oqI=') return;
+        // if (data.message === 'itCH9LQxCRTjofVvRGxcRg==') return;
+
+        createMessage(data.name, data.message);
+    });
+
+    const sendMessage = () => {
+        const message = document.getElementById("message");
+        if (message.value == "") return;
+        socketio.emit("message", { data: message.value });
+        message.value = "";
+    };
+</script>
+
+
+{% for msg in messages %}
+<script type="text/javascript">
+    createMessage("{{msg.name}}", "{{msg.message}}");
+</script>
+{% endfor %} {% endblock %}
