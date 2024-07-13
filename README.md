@@ -64,10 +64,4 @@ Messages are encrypted and decrypted using AES ECB mode without an IV. Ensure th
 
 Contributions are welcome! Please fork the repository and submit a pull request with your changes.
 
-## Contact
-
-For any questions or issues, please contact [prasamdoshi1011@gmail.com].
-
 ---
-
-Feel free to customize this `README.md` as needed for your specific project details.
