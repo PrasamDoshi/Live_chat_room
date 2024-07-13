@@ -46,7 +46,7 @@ Clone the repository:
 
 ## File Structure
 
-- `app.py`: The main Flask application file.
+- `main.py`: The main Flask application file.
 - `static/`: Directory for static files (CSS).
 - `templates/`: Directory for HTML templates.
 
@@ -59,6 +59,9 @@ Clone the repository:
 ## Encryption
 
 Messages are encrypted and decrypted using AES ECB mode without an IV. Ensure that the key used for encryption and decryption is kept secure and is known to both the sender and receiver.
+
+## Video presentation
+- https://youtu.be/JUon0jOxpe8?si=f8Ifi2I7OAawDiHO
 
 ## Contributing
 
